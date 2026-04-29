@@ -16,7 +16,7 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 # Session cookie hardening (can be overridden by env in development)
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 # Set SESSION_COOKIE_SECURE if running under HTTPS in production
-app.config['SESSION_COOKIE_SECURE'] = os.environ.get('SESSION_COOKIE_SECURE', '0') == '1'
+app.config['SESSION_COOKIE_SECURE'] = os.environ.get('SESSION_COOKIE_SECURE', '1') == '1'
 # Optional SameSite setting (Lax by default)
 app.config['SESSION_COOKIE_SAMESITE'] = os.environ.get('SESSION_COOKIE_SAMESITE', 'Lax')
 # Session lifetime (seconds) - optional
