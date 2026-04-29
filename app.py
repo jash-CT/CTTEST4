@@ -210,6 +210,8 @@ def decide_loan(loan_id):
     data = request.get_json() or {}
     decision = (data.get('decision') or '').lower()
     note = data.get('note')
+    if note and len(str(note)) > 255:
+        return jsonify({'error': 'note too long'}), 400
     if decision not in ('approve', 'reject'):
         return jsonify({'error': "decision must be 'approve' or 'reject'"}), 400
     loan.status = 'approved' if decision == 'approve' else 'rejected'
