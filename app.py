@@ -12,7 +12,7 @@ DB_PATH = os.path.join(BASE_DIR, 'loans.db')
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_PATH}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key')
+app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 # Session cookie hardening (can be overridden by env in development)
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 # Set SESSION_COOKIE_SECURE if running under HTTPS in production
@@ -245,4 +245,4 @@ def init_admin():
 if __name__ == '__main__':
     # Ensure DB exists and optionally create admin from env
     init_db(create_admin_from_env=True)
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=(os.environ.get('FLASK_DEBUG', '0') == '1'))
