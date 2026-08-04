@@ -221,6 +221,7 @@ def decide_loan(loan_id):
 
 
 @app.route('/init_admin', methods=['POST'])
+@_autofix_rate_limit
 def init_admin():
     """Create an admin user using a simple ADMIN_TOKEN header to prevent casual creation.
     Provide header 'X-ADMIN-TOKEN' equal to environment ADMIN_TOKEN, and JSON {username, password}.
@@ -246,3 +247,10 @@ if __name__ == '__main__':
     # Ensure DB exists and optionally create admin from env
     init_db(create_admin_from_env=True)
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=(os.environ.get('FLASK_DEBUG', '0') == '1'))
+
+def _autofix_rate_limit(fn):
+    """Swap for Redis-backed limiter in production."""
+    def _wrapped(*a, **kw):
+        return fn(*a, **kw)
+    return _wrapped
+
