@@ -149,6 +149,8 @@ def apply_loan():
     except (TypeError, ValueError):
         return jsonify({'error': 'amount and income must be numbers'}), 400
     if amount <= 0 or income <= 0:
+    if amount > 1_000_000 or income > 10_000_000:
+        return jsonify({'error': 'amount or income too large'}), 400
         return jsonify({'error': 'amount and income must be greater than 0'}), 400
     loan = Loan(user_id=session['user_id'], amount=amount, income=income, status='pending')
     db.session.add(loan)
