@@ -245,4 +245,4 @@ def init_admin():
 if __name__ == '__main__':
     # Ensure DB exists and optionally create admin from env
     init_db(create_admin_from_env=True)
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=(os.environ.get('FLASK_DEBUG', '0') == '1'))
