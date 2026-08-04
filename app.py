@@ -12,7 +12,7 @@ DB_PATH = os.path.join(BASE_DIR, 'loans.db')
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_PATH}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key')
+app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 # Session cookie hardening (can be overridden by env in development)
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 # Set SESSION_COOKIE_SECURE if running under HTTPS in production
