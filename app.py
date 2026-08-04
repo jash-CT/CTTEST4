@@ -109,7 +109,7 @@ def register():
     if not username or not password:
         return jsonify({'error': 'username and password required'}), 400
     if User.query.filter_by(username=username).first():
-        return jsonify({'error': 'username already exists'}), 400
+        return jsonify({'error': 'unable to register user'}), 400
     user = User(username=username, password_hash=generate_password_hash(password), role='user')
     db.session.add(user)
     db.session.commit()
